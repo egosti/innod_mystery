@@ -32,17 +32,21 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       }
     }
   }
-  `).then((queryResult) => {
-  	let blogPosts = queryResult.data.allContentfulBlogPost.edges;
-    blogPosts.forEach((dataEntry, index) => {
-    	let post = dataEntry.node; 
-    
-	    createPage({
-	      // path: `/article/${moment(post.date).format('YYYY-MM-DD-hh-mm')}`,
-	      path: `/article/${index}`,
-	      component: path.resolve('src/templates/article.js'),
-	      context: { id: post.id }
-	    });
+  `).then(({
+      data: {
+        allContentfulBlogPost: {edges: blogPosts}
+      }
+    }) => {
+    	// let blogPosts = queryResult.data.allContentfulBlogPost.edges;
+
+      blogPosts.forEach((dataEntry, index) => {
+      	let post = dataEntry.node; 
+  	    createPage({
+  	      // path: `/article/${moment(post.date).format('YYYY-MM-DD-hh-mm')}`,
+  	      path: `/article/${index}`,
+  	      component: path.resolve('src/templates/article.js'),
+  	      context: { id: post.id }
+  	    });
+      });
     });
-  });
 };
