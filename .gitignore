@@ -8,3 +8,6 @@ InnoD\ Mystery-975d82e0c439.json
 
 # Build directory
 /public
+
+#Mac Files
+.DS_Store
